@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/translation_fragment">
+    <fragment
+        android:id="@+id/translation_fragment"
+        android:name="com.zcyi.rorschach.myFragment.TranslationFragment"
+        android:label="翻译"
+        tools:layout="@layout/fragment_translation" />
+
+    <fragment
+        android:id="@+id/unfamiliar_words_fragment"
+        android:name="com.zcyi.rorschach.myFragment.UnfamiliarWordsFragment"
+        android:label="生词"
+        tools:layout="@layout/fragment_unfamiliar_words" />
+</navigation>

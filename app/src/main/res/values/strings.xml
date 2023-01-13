@@ -1,0 +1,29 @@
+<resources>
+
+    <string name="app_name">随便翻翻8</string>
+    <string name="login">登录</string>
+    <string name="username">账号</string>
+    <string name="enterUsername">输入账号</string>
+    <string name="enterPassword">输入密码</string>
+    <string name="Password">密码</string>
+    <string name="alert">请输入翻译内容</string>
+    <string name="btn_translation">翻译</string>
+    <string name="UnfamiliarWords">生词本</string>
+    <string name="chinese">汉</string>
+    <string name="english">英</string>
+    <string name="image_description">image</string>
+    <string name="unWordsCount">生词数量:</string>
+    <string name="web_eg">网络含义及例句</string>
+    <string name="result">翻译结果</string>
+    <string name="register_login">还没有账号?注册!</string>
+    <string name="register">注册</string>
+    <string name="enterEmail">输入邮箱</string>
+    <string name="enterPhoneNum">输入手机号</string>
+    <string name="enterPasswordAgain">再一次输入密码</string>
+    <string name="words">good</string>
+    <string name="translation">adj.良好，的优秀的；</string>
+    <string name="exit">退出登录</string>
+    <string name="translationInfo">单词详情</string>
+    <string name="unCollection">取消收藏</string>
+
+</resources>

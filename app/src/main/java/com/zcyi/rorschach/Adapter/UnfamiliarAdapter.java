@@ -46,7 +46,9 @@ public class UnfamiliarAdapter extends RecyclerView.Adapter<UnfamiliarAdapter.Un
 
         binding.words.setText(list.get(position).getQuery());
         binding.to.setText(list.get(position).getTranslation());
-        binding.translation.setText(list.get(position).getExplains().replace("\n", " "));
+        if (list.get(position).getExplains() != null) {
+            binding.translation.setText(list.get(position).getExplains().replace("\n", " "));
+        }
         Intent intent = new Intent(activity, TranslationInfoActivity.class);
         intent.putExtra("words", UtilMethod.ObjectToString(list.get(position)));
         binding.unfamiliarLin.setOnClickListener(v -> activity.startActivity(intent));

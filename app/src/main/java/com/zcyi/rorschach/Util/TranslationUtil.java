@@ -7,9 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TranslationUtil {
-
-    private static final String APP_KEY = "7295991bcdb0e1e4";
-    private static final String APP_SECRET = "Nr9WKOFCsKXN8Csd6nEDKlEPfmRQ1m3Y";
+    
+    //应用ID
+    private static final String APP_KEY = "";
+    
+    //应用秘钥
+    private static final String APP_SECRET = "";
     public static Map<String, String> getInfo(String translation, String from, String to) {
         Map<String, String> params = new HashMap<String, String>();
         String q = translation;

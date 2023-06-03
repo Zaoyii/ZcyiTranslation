@@ -365,7 +365,8 @@ public class TranslationVM extends AndroidViewModel {
                                     }
                                     if (!ukPhonetic.isEmpty()) {
                                         UKPhonetic.setValue("英式发音:" + ukPhonetic);
-                                    }
+                                    }SpeakUrl.setValue(jsonObject.getString("speakUrl"));
+                                    VoicePlaying.setValue(false);
                                 }
                             }
                         } catch (JSONException e) {

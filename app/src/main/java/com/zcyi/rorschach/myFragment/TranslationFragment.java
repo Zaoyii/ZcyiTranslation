@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.zcyi.rorschach.Adapter.LabelAdapter;
 import com.zcyi.rorschach.R;
+import com.zcyi.rorschach.Util.UtilMethod;
 import com.zcyi.rorschach.databinding.FragmentTranslationBinding;
 
 @SuppressLint("NotifyDataSetChanged")
@@ -71,6 +72,7 @@ public class TranslationFragment extends Fragment {
                     translationVM.explains.setValue("");
                     translationVM.labels.clear();
                     translationVM.img_src_collection.setValue(null);
+                    binding.voicePlay.setVisibility(View.GONE);
                 }
             }
         });
@@ -82,7 +84,7 @@ public class TranslationFragment extends Fragment {
 
             @Override
             public void onItemRangeChanged(ObservableList<String> sender, int positionStart, int itemCount) {
-                adapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -92,7 +94,6 @@ public class TranslationFragment extends Fragment {
 
             @Override
             public void onItemRangeMoved(ObservableList<String> sender, int fromPosition, int toPosition, int itemCount) {
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -119,6 +120,28 @@ public class TranslationFragment extends Fragment {
                 }
             }
         });
+        binding.voicePlay.setOnClickListener(v -> {
+            if (!UtilMethod.isFastClick()) {
+                translationVM.PLayVoice();
+            } else {
+                translationVM.ShowToast("不要频繁点击~");
+            }
+        });
 
+        translationVM.SpeakUrl.observe(getViewLifecycleOwner(), s -> {
+            if (s.isEmpty()) {
+                binding.voicePlay.setVisibility(View.GONE);
+            } else {
+                binding.voicePlay.setVisibility(View.VISIBLE);
+
+            }
+        });
+        translationVM.VoicePlaying.observe(getViewLifecycleOwner(), b -> {
+            if (b) {
+                binding.voicePlay.setImageResource(R.drawable.voice_playing);
+            } else {
+                binding.voicePlay.setImageResource(R.drawable.voice_stop);
+            }
+        });
     }
 }

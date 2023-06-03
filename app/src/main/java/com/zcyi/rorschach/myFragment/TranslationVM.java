@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +59,8 @@ public class TranslationVM extends AndroidViewModel {
     MutableLiveData<String> webs; //网络
     MutableLiveData<Integer> img_src_lan;//切换语言图片
     MutableLiveData<Integer> img_src_collection;//切换语言图片
+    MutableLiveData<String> SpeakUrl;//音频路径
+    MutableLiveData<Boolean> VoicePlaying;//是否正在播放音频
     ObservableArrayList<String> labels;//标签
     ObservableArrayList<Words> words; //生词表数据
     MutableLiveData<Integer> wordsCount;//生词数量
@@ -71,6 +75,14 @@ public class TranslationVM extends AndroidViewModel {
     AlertDialog.Builder unCollectionDialog;//提示框
     AlertDialog.Builder CollectionDialog;
     int currentUserId;//当前登录用户的id，存储在SharedPreferences中
+
+    public MutableLiveData<String> getSpeakUrl() {
+        return SpeakUrl;
+    }
+
+    public MutableLiveData<Boolean> getVoicePlaying() {
+        return VoicePlaying;
+    }
 
     public MutableLiveData<Integer> getWordsCount() {
         return wordsCount;
@@ -163,6 +175,8 @@ public class TranslationVM extends AndroidViewModel {
         img_src_lan = new MutableLiveData<>();
         img_src_lan.setValue(R.drawable.ic_arrow_right_24);
         img_src_collection = new MutableLiveData<>();
+        SpeakUrl = new MutableLiveData<>();
+        VoicePlaying = new MutableLiveData<>();
         baseRoomDatabase = InstanceDatabase.getInstance(getApplication());
         wordsDao = baseRoomDatabase.getWordsDao();
         preferences = UtilMethod.getPreferences(getApplication());
@@ -571,6 +585,33 @@ public class TranslationVM extends AndroidViewModel {
             }
         }
     }
+
+    //播放单词音频
+    public void PLayVoice() {
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(SpeakUrl.getValue());
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(mp -> {
+                if (!Boolean.TRUE.equals(VoicePlaying.getValue())) {
+                    VoicePlaying.setValue(true);
+                    Log.e("zcyi", "音频文件已准备");
+                    Log.e("zcyi", "音频文件时长:" + mediaPlayer.getDuration() / 1000);
+                    mediaPlayer.start();
+                }
+
+            });
+            mediaPlayer.setOnCompletionListener(mp -> {
+                VoicePlaying.setValue(false);
+
+                mediaPlayer.release();
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     //查询当前用户id的所有生词
     public void selectAllWordsByUserId() {
         if (currentUserId != -1) {

@@ -36,6 +36,7 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.LabelHolder>
     @Override
     public void onBindViewHolder(@NonNull LabelHolder holder, int position) {
         binding.setMyData(list.get(position));
+        holder.setIsRecyclable(false);
     }
 
     @Override
